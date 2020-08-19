@@ -1,4 +1,5 @@
 use crate::{backend, backends, Cursive};
+use cursive_core::CursiveRunner;
 
 /// A runnable wrapper around `Cursive`, bundling the backend initializer.
 ///
@@ -57,6 +58,14 @@ impl CursiveRunnable {
     /// If the backend initialization fails.
     pub fn run(&mut self) {
         self.try_run().unwrap();
+    }
+
+    /// dummy text
+    pub fn step(&mut self) {
+        let mut runner = self.siv.runner((self.backend_init)().unwrap());
+
+        runner.refresh();
+        runner.step();
     }
 
     /// Runs the event loop with the registered backend initializer.
